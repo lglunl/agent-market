@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    image: agent-market-app:latest
+    container_name: agent-market-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    restart: unless-stopped

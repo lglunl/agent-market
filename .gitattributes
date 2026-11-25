@@ -1,0 +1,5 @@
+# 确保脚本与容器配置始终以 LF 提交，避免 Windows CRLF 在 Linux 上执行失败
+*.sh      text eol=lf
+Dockerfile text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
