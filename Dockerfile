@@ -1,9 +1,10 @@
 FROM node:22-bookworm-slim AS deps
 WORKDIR /app
-# 国内服务器加速：npm 走 npmmirror；better-sqlite3 自带预编译二进制（无需本地编译）
+# 国内服务器加速：npm 走 npmmirror。
+# --ignore-scripts 跳过 node-gyp 编译（better-sqlite3 自带 prebuilds/ 预编译二进制，运行时由 lib/binding.js 自动加载）
 ENV NPM_CONFIG_REGISTRY=https://registry.npmmirror.com
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --ignore-scripts && node -e "require('better-sqlite3'); console.log('better-sqlite3 OK')"
 
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
